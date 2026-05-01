@@ -323,6 +323,124 @@
         color: #1a472a;
         font-weight: bold;
       }
+
+      /* ===== FUNNY POPUP STYLES ===== */
+      #funnyPopup {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.75);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        animation: fadeInBg 0.3s ease;
+      }
+      #funnyPopup.show {
+        display: flex;
+      }
+      @keyframes fadeInBg {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      .popup-box {
+        background: white;
+        border-radius: 24px;
+        padding: 36px 28px;
+        max-width: 420px;
+        width: 90%;
+        text-align: center;
+        position: relative;
+        animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+        border: 4px solid #f5a623;
+      }
+      @keyframes popIn {
+        from { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+        to { transform: scale(1) rotate(0deg); opacity: 1; }
+      }
+      .popup-stamp {
+        background: linear-gradient(135deg, #1a472a, #2d6a4f);
+        color: white;
+        font-size: 11px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        padding: 5px 14px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+      }
+      .popup-emoji-big {
+        font-size: 72px;
+        display: block;
+        animation: bounce 0.8s ease infinite alternate;
+        line-height: 1.2;
+      }
+      @keyframes bounce {
+        from { transform: translateY(0) scale(1); }
+        to { transform: translateY(-12px) scale(1.1); }
+      }
+      .popup-title {
+        font-size: 22px;
+        font-weight: 900;
+        color: #1a472a;
+        margin: 12px 0 8px;
+        line-height: 1.3;
+      }
+      .popup-subtitle {
+        font-size: 14px;
+        color: #555;
+        line-height: 1.7;
+        margin-bottom: 18px;
+      }
+      .popup-certificate {
+        background: linear-gradient(135deg, #fff3cd, #ffe08a);
+        border: 2px dashed #f5a623;
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-size: 13px;
+        color: #333;
+        margin-bottom: 20px;
+        font-style: italic;
+      }
+      .popup-certificate strong {
+        color: #1a472a;
+        font-style: normal;
+        font-size: 15px;
+        display: block;
+        margin-bottom: 4px;
+      }
+      .popup-close-btn {
+        background: linear-gradient(135deg, #f5a623, #e8890c);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 13px 30px;
+        font-size: 16px;
+        font-weight: 900;
+        cursor: pointer;
+        letter-spacing: 1px;
+        box-shadow: 0 5px 20px rgba(245, 166, 35, 0.5);
+        transition: transform 0.2s;
+        width: 100%;
+      }
+      .popup-close-btn:hover {
+        transform: scale(1.04);
+      }
+      .confetti-piece {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        opacity: 0;
+        animation: confettiFall linear forwards;
+        z-index: 10000;
+        pointer-events: none;
+      }
+      @keyframes confettiFall {
+        0%   { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+      }
     </style>
   </head>
   <body>
@@ -714,6 +832,23 @@
       </div>
     </div>
 
+    <!-- ===== FUNNY POPUP HTML ===== -->
+    <div id="funnyPopup">
+      <div class="popup-box">
+        <div class="popup-stamp">🏛️ HARYANA BAKWAAS BUREAU — OFFICIAL</div>
+        <span class="popup-emoji-big" id="popupEmoji">🎉</span>
+        <div class="popup-title" id="popupTitle">BADHAAI HO BHAI!</div>
+        <div class="popup-subtitle" id="popupSubtitle">Teri application safaltapurvak jama ho gayi!</div>
+        <div class="popup-certificate">
+          <strong>🏆 OFFICIAL CERTIFICATE</strong>
+          Form No: <span id="popupFormNo">BCH-2026-????</span><br>
+          Status: <b style="color:#1a472a">APPROVED ✅</b><br>
+          Pad: <span id="popupPad">Chief Backchod</span>
+        </div>
+        <button class="popup-close-btn" onclick="closePopup()">🙏 Dhanyavaad Bhai! — Close Karo</button>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
       const num = Math.floor(Math.random() * 9000) + 1000;
@@ -739,16 +874,75 @@
         {
           e: "🏆🎉🏆",
           t: "Badhaai Ho Bhai! Teri application APPROVED ho gayi! Tu ab officially Haryana ka Certified Backchod hai. Certificate 10 saal mein aayega — tab tak thodi aur karo!",
+          pad: "Senior Gapbaaz 🎖️",
+          popupTitle: "APPLICATION APPROVED BHAI! 🏆",
+          popupSub: "Tera naam Haryana Bakwaas Register mein darz ho gaya! Abhi teri bhains bhi proud hai tujhpe! 🐄",
         },
         {
           e: "🥇🐄🥇",
           t: "Wah wah bhai! Tera naam Haryana Backchodi Hall of Fame mein darz kar liya gaya! Chai ki thadi pe party banta hai. Poori mohalla ko bata de!",
+          pad: "Hall of Fame Gapbaaz 🌟",
+          popupTitle: "HALL OF FAME MEIN ENTRY! 🥇",
+          popupSub: "Chai ki thadi pe party banta hai bhai! Poori mohalla ko bata de — tu select ho gaya! ☕🎊",
         },
         {
           e: "👑💪👑",
           t: "Boss level application! Senior Gapbaaz ka pad tujhe diya jaata hai. Teri bhains bhi proud hogi. Aaj se tu officially Head Bacchod hai gaav ka!",
+          pad: "HEAD BACKCHOD — GAAV KA BOSS 👑",
+          popupTitle: "HEAD BACKCHOD DECLARE! 👑",
+          popupSub: "Boss level application! Teri bhains bhi proud hogi. Aaj se tu officially HEAD BACKCHOD hai poore gaav ka! 💪",
         },
       ];
+
+      // ===== CONFETTI FUNCTION =====
+      function launchConfetti() {
+        const colors = ['#f5a623','#1a472a','#e8890c','#2d6a4f','#fff','#c0392b','#f7d06e'];
+        for (let i = 0; i < 80; i++) {
+          setTimeout(() => {
+            const el = document.createElement('div');
+            el.className = 'confetti-piece';
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.top = '-20px';
+            el.style.background = colors[Math.floor(Math.random() * colors.length)];
+            el.style.width = (Math.random() * 10 + 6) + 'px';
+            el.style.height = (Math.random() * 10 + 6) + 'px';
+            el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+            el.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+            el.style.animationDelay = '0s';
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 4000);
+          }, i * 30);
+        }
+      }
+
+      function showFunnyPopup(msg, naam, gaav, level) {
+        document.getElementById('popupEmoji').textContent = msg.e;
+        document.getElementById('popupTitle').textContent = msg.popupTitle;
+        document.getElementById('popupSubtitle').textContent = msg.popupSub;
+        document.getElementById('popupFormNo').textContent = formNo;
+        document.getElementById('popupPad').textContent = msg.pad;
+        // Show user's own data in certificate
+        var certEl = document.querySelector('.popup-certificate');
+        certEl.innerHTML = '<strong>🏆 OFFICIAL CERTIFICATE OF BACKCHODI</strong>'
+          + 'Form No: <b>' + formNo + '</b><br>'
+          + 'Naam: <b>' + (naam || '—') + '</b><br>'
+          + 'Gaav: <b>' + (gaav || '—') + '</b><br>'
+          + 'Level: <b>' + (level || '?') + ' / 10 🔥</b><br>'
+          + 'Status: <b style="color:#1a472a">APPROVED ✅</b><br>'
+          + 'Pad: <b>' + msg.pad + '</b>';
+        const popup = document.getElementById('funnyPopup');
+        popup.classList.add('show');
+        launchConfetti();
+      }
+
+      function closePopup() {
+        document.getElementById('funnyPopup').classList.remove('show');
+      }
+
+      // Close popup on background click
+      document.getElementById('funnyPopup').addEventListener('click', function(e) {
+        if (e.target === this) closePopup();
+      });
 
       async function submitForm() {
         if (!document.getElementById("agree").checked) {
@@ -758,63 +952,54 @@
           return;
         }
 
-        var serviceId = document.getElementById("cfg_service").value.trim();
-        var templateId = document.getElementById("cfg_template").value.trim();
-        var pubKey = document.getElementById("cfg_pubkey").value.trim();
-        var toEmail = document.getElementById("cfg_email").value.trim();
+        // Pick random success message
+        var r = successMessages[Math.floor(Math.random() * successMessages.length)];
 
-        if (!serviceId || !templateId || !pubKey || !toEmail) {
-          alert(
-            "Bhai! Upar EmailJS ki saari 4 details bharo pehle! Service ID, Template ID, Public Key aur Gmail. ⚙️",
-          );
-          return;
-        }
+        // Collect filled form data for popup display
+        var naam = document.getElementById("f_naam").value || "Naam nahin diya";
+        var gaav = document.getElementById("f_gaav").value || "Gaav nahin bataya";
+        var level = document.getElementById("f_level").value;
 
-        var jagah = getCheckboxValues("f_jagah");
+        // Always show popup immediately
+        showFunnyPopup(r, naam, gaav, level);
 
-        var templateParams = {
-          form_no: formNo,
-          naam: document.getElementById("f_naam").value || "Nahin bataya",
-          gaav: document.getElementById("f_gaav").value || "Nahin bataya",
-          number: document.getElementById("f_number").value || "Nahin diya",
-          umar: getRadioValue("umar"),
-          level: document.getElementById("f_level").value + " / 10",
-          time: getRadioValue("time"),
-          jagah: jagah,
-          spec: getRadioValue("spec"),
-          dialogue:
-            document.getElementById("f_dialogue").value || "Kuch nahin likha",
-          murder: getRadioValue("murder"),
-          bandook: getRadioValue("bandook"),
-          band: getRadioValue("band"),
-          to_email: toEmail,
-        };
+        // Also show result box below form
+        document.getElementById("resultEmoji").textContent = r.e;
+        document.getElementById("resultText").textContent = r.t;
+        var box = document.getElementById("resultBox");
+        box.classList.add("show");
 
-        var btn = document.getElementById("submitBtn");
-        var loading = document.getElementById("loadingMsg");
-        btn.disabled = true;
-        loading.classList.add("show");
+        // EmailJS — optional, try if configured
+        var serviceId = (document.getElementById("cfg_service") || {}).value?.trim();
+        var templateId = (document.getElementById("cfg_template") || {}).value?.trim();
+        var pubKey = (document.getElementById("cfg_pubkey") || {}).value?.trim();
+        var toEmail = (document.getElementById("cfg_email") || {}).value?.trim();
 
-        try {
-          emailjs.init(pubKey);
-          await emailjs.send(serviceId, templateId, templateParams);
-          loading.classList.remove("show");
-          var r =
-            successMessages[Math.floor(Math.random() * successMessages.length)];
-          document.getElementById("resultEmoji").textContent = r.e;
-          document.getElementById("resultText").textContent =
-            r.t + " — Email bhi bhej diya gaya tera! 📧";
-          var box = document.getElementById("resultBox");
-          box.classList.add("show");
-          box.scrollIntoView({ behavior: "smooth" });
-        } catch (err) {
-          loading.classList.remove("show");
-          btn.disabled = false;
-          alert(
-            "Email bhejne mein dikkat aayi bhai! 😅\n\n" +
-              (err.text || err.message || JSON.stringify(err)) +
-              "\n\nEmailJS ki details ek baar check kar.",
-          );
+        if (serviceId && templateId && pubKey && toEmail) {
+          var jagah = getCheckboxValues("f_jagah");
+          var templateParams = {
+            form_no: formNo,
+            naam: naam,
+            gaav: gaav,
+            number: document.getElementById("f_number").value || "Nahin diya",
+            umar: getRadioValue("umar"),
+            level: level + " / 10",
+            time: getRadioValue("time"),
+            jagah: jagah,
+            spec: getRadioValue("spec"),
+            dialogue: document.getElementById("f_dialogue").value || "Kuch nahin likha",
+            murder: getRadioValue("murder"),
+            bandook: getRadioValue("bandook"),
+            band: getRadioValue("band"),
+            to_email: toEmail,
+          };
+          try {
+            emailjs.init(pubKey);
+            await emailjs.send(serviceId, templateId, templateParams);
+            document.getElementById("resultText").textContent = r.t + " — Email bhi bhej diya gaya tera! 📧";
+          } catch(err) {
+            console.warn("Email nahin gaya:", err);
+          }
         }
       }
     </script>
