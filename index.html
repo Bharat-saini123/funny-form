@@ -323,6 +323,47 @@
         color: #1a472a;
         font-weight: bold;
       }
+      .email-entry-box {
+        background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+        border: 2px solid #2d6a4f;
+        border-radius: 14px;
+        padding: 18px 16px 14px;
+        margin-bottom: 22px;
+        text-align: center;
+      }
+      .email-entry-box h3 {
+        color: #1a472a;
+        font-size: 15px;
+        font-weight: 800;
+        margin-bottom: 4px;
+        letter-spacing: 0.5px;
+      }
+      .email-entry-box p {
+        color: #555;
+        font-size: 12px;
+        margin-bottom: 12px;
+      }
+      .email-entry-box input[type="email"] {
+        width: 100%;
+        border: 2px solid #2d6a4f;
+        border-radius: 10px;
+        padding: 11px 14px;
+        font-size: 14px;
+        color: #333;
+        background: #fff;
+        font-family: inherit;
+        transition: border-color 0.3s;
+        box-sizing: border-box;
+      }
+      .email-entry-box input[type="email"]:focus {
+        outline: none;
+        border-color: #f5a623;
+      }
+      .email-entry-box .email-note {
+        font-size: 11px;
+        color: #888;
+        margin-top: 8px;
+      }
 
       /* ===== FUNNY POPUP STYLES ===== */
       #funnyPopup {
@@ -461,7 +502,23 @@
           Yeh form number yaad rakhio bhai 😄
         </div>
 
-        <!-- SECTION 1 -->
+        <!-- 📧 EMAIL INPUT BOX -->
+        <div class="email-entry-box">
+          <h3>📧 Apni Email Daalo — Form Tere Paas Aayega!</h3>
+          <p>Jo email daalega, usi par form submission ki puri details milegi 🐄</p>
+          <input
+            type="email"
+            id="user_email"
+            placeholder="example@gmail.com"
+            autocomplete="email"
+          />
+          <div class="email-note">⚠️ Sahi email daalna bhai — galat daali toh form nahin pahunchega!</div>
+        </div>
+
+        <!-- EmailJS Hidden Config -->
+        <input type="hidden" id="cfg_service"  value="service_5eoy06l" />
+        <input type="hidden" id="cfg_template" value="template_7xtpck9" />
+        <input type="hidden" id="cfg_pubkey"   value="jETDWsjVPBGS6YDLp" />
         <div class="section-title">📋 SECTION 1 — AAPKA PARICHAY</div>
 
         <div class="field">
@@ -982,6 +1039,13 @@
           return;
         }
 
+        var userEmail = document.getElementById("user_email").value.trim();
+        if (!userEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userEmail)) {
+          alert("Bhai! Pehle apni sahi email daalo upar wale box mein! 📧😤");
+          document.getElementById("user_email").focus();
+          return;
+        }
+
         // Pick random success message
         var r = successMessages[Math.floor(Math.random() * successMessages.length)];
 
@@ -999,13 +1063,12 @@
         var box = document.getElementById("resultBox");
         box.classList.add("show");
 
-        // EmailJS — optional, try if configured
-        var serviceId = (document.getElementById("cfg_service") || {}).value?.trim();
-        var templateId = (document.getElementById("cfg_template") || {}).value?.trim();
-        var pubKey = (document.getElementById("cfg_pubkey") || {}).value?.trim();
-        var toEmail = (document.getElementById("cfg_email") || {}).value?.trim();
+        // EmailJS — send to user's entered email
+        var serviceId = document.getElementById("cfg_service").value.trim();
+        var templateId = document.getElementById("cfg_template").value.trim();
+        var pubKey = document.getElementById("cfg_pubkey").value.trim();
 
-        if (serviceId && templateId && pubKey && toEmail) {
+        if (serviceId && serviceId !== "YOUR_SERVICE_ID" && templateId && pubKey) {
           var jagah = getCheckboxValues("f_jagah");
           var templateParams = {
             form_no: formNo,
@@ -1022,12 +1085,12 @@
             bandook: getRadioValue("bandook"),
             band: getRadioValue("band"),
             udta_teer: getRadioValue("udta_teer"),
-            to_email: toEmail,
+            to_email: userEmail,
           };
           try {
             emailjs.init(pubKey);
             await emailjs.send(serviceId, templateId, templateParams);
-            document.getElementById("resultText").textContent = r.t + " — Email bhi bhej diya gaya tera! 📧";
+            document.getElementById("resultText").textContent = r.t + " — Email bhi bhej diya gaya teri " + userEmail + " pe! 📧";
           } catch(err) {
             console.warn("Email nahin gaya:", err);
           }
