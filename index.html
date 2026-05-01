@@ -612,6 +612,18 @@
               ><input type="checkbox" value="Shaadi mein bina invite ke" /> 🎪
               Shaadi mein bina invite ke</label
             >
+            <label class="checkbox-item"
+              ><input type="checkbox" value="High School ke bahar" /> 🏫
+              High School ke bahar (Patli gali mein)</label
+            >
+            <label class="checkbox-item"
+              ><input type="checkbox" value="Stadium ki gallery mein" /> 🏟️
+              Stadium ki gallery mein (Match ho ya na ho)</label
+            >
+            <label class="checkbox-item"
+              ><input type="checkbox" value="Rotash ke paas wali jagah pe" /> 🌳
+              Rotash ke paas (Wahi wali jagah)</label
+            >
           </div>
         </div>
 
@@ -662,6 +674,12 @@
               id="s7"
               value="Gaadi wali bakwaas"
             /><label for="s7">🚗 Gaadi wali bakwaas</label>
+            <input
+              type="radio"
+              name="spec"
+              id="s8"
+              value="Gend mai keeda — Cricket ka asli gyaani"
+            /><label for="s8">🪲 Gend mai keeda</label>
           </div>
         </div>
 
@@ -674,6 +692,18 @@
             id="f_dialogue"
             placeholder="Jaise: 'Bhai hum toh kehte hain ki...' — Apna best wala likh yahan!"
           ></textarea>
+        </div>
+
+        <div class="field">
+          <label class="main-label">🏹 Udta Teer kitne baar liya hai? (Seedha bata, sharm mat kar)</label>
+          <div class="radio-group">
+            <input type="radio" name="udta_teer" id="ut1" value="Kabhi nahin liya — Main seedha hun" /><label for="ut1">😇 Kabhi nahin liya</label>
+            <input type="radio" name="udta_teer" id="ut2" value="2 baar liya tha, galti se" /><label for="ut2">✌️ 2 baar (Galti se)</label>
+            <input type="radio" name="udta_teer" id="ut3" value="6 baar — Chhakka maara hai" /><label for="ut3">6️⃣ 6 baar — Chhakka!</label>
+            <input type="radio" name="udta_teer" id="ut4" value="Har baar leta hun — Gend mai khujli rehti hai" /><label for="ut4">🪲 Har udta teer leta hun — Gend mai khujli rehti hai</label>
+            <input type="radio" name="udta_teer" id="ut5" value="Ginta hi nahin — Khujli permanent ho gayi" /><label for="ut5">♾️ Ginta hi nahin — Khujli permanent</label>
+            <input type="radio" name="udta_teer" id="ut6" value="Main hi udta teer hun" /><label for="ut6">🏹 Main khud hi Udta Teer hun</label>
+          </div>
         </div>
 
         <!-- SECTION 3 — CRIME RECORD 😂 -->
@@ -991,6 +1021,7 @@
             murder: getRadioValue("murder"),
             bandook: getRadioValue("bandook"),
             band: getRadioValue("band"),
+            udta_teer: getRadioValue("udta_teer"),
             to_email: toEmail,
           };
           try {
