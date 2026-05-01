@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="hi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Backchodi Registration Form</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #f5a623 0%,
+          #f7d06e 50%,
+          #e8890c 100%
+        );
+        min-height: 100vh;
+        padding: 20px;
+      }
+      .container {
+        max-width: 620px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+      .header {
+        background: linear-gradient(135deg, #1a472a, #2d6a4f);
+        color: white;
+        padding: 28px 20px;
+        text-align: center;
+      }
+      .header::before {
+        content: "🐄";
+        font-size: 52px;
+        display: block;
+        margin-bottom: 10px;
+      }
+      .header h1 {
+        font-size: 24px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      .header p {
+        font-size: 13px;
+        opacity: 0.85;
+        margin-top: 6px;
+        font-style: italic;
+      }
+      .stamp {
+        background: #f5a623;
+        color: #1a1a1a;
+        font-size: 11px;
+        font-weight: bold;
+        padding: 5px 14px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-top: 10px;
+      }
+      .form-body {
+        padding: 25px 22px;
+      }
+      .serial-no {
+        background: #fff3cd;
+        border: 2px dashed #f5a623;
+        border-radius: 10px;
+        padding: 12px;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 13px;
+        color: #555;
+      }
+      .serial-no strong {
+        font-size: 20px;
+        color: #1a472a;
+        display: block;
+      }
+      .section-title {
+        background: #1a472a;
+        color: white;
+        font-size: 13px;
+        font-weight: bold;
+        padding: 8px 15px;
+        border-radius: 8px;
+        margin: 22px 0 14px;
+        letter-spacing: 1px;
+      }
+      .section-title.red {
+        background: linear-gradient(135deg, #7f0000, #c0392b);
+      }
+      .field {
+        margin-bottom: 18px;
+      }
+      .field label.main-label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 7px;
+      }
+      .field input[type="text"],
+      .field input[type="tel"],
+      .field input[type="email"],
+      .field select,
+      .field textarea {
+        width: 100%;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-size: 14px;
+        color: #333;
+        background: #fafafa;
+        transition: border-color 0.3s;
+        font-family: inherit;
+      }
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+        outline: none;
+        border-color: #f5a623;
+        background: #fff;
+      }
+      .field textarea {
+        resize: vertical;
+        min-height: 75px;
+      }
+      .radio-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 6px;
+      }
+      .radio-group input[type="radio"] {
+        display: none;
+      }
+      .radio-group label {
+        background: #f0f0f0;
+        border: 2px solid #ddd;
+        border-radius: 20px;
+        padding: 7px 15px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        transition: all 0.2s;
+        user-select: none;
+      }
+      .radio-group input[type="radio"]:checked + label {
+        background: #1a472a;
+        border-color: #1a472a;
+        color: white;
+      }
+      .radio-group.red input[type="radio"]:checked + label {
+        background: #c0392b;
+        border-color: #c0392b;
+        color: white;
+      }
+      .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 6px;
+      }
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 13px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        border: 2px solid #eee;
+        cursor: pointer;
+        font-size: 13px;
+        transition: border-color 0.2s;
+      }
+      .checkbox-item:hover {
+        border-color: #f5a623;
+      }
+      .checkbox-item input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #1a472a;
+        flex-shrink: 0;
+      }
+      .range-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 6px;
+      }
+      .range-container input[type="range"] {
+        flex: 1;
+        accent-color: #1a472a;
+        border: none;
+        padding: 0;
+        background: none;
+      }
+      .range-value {
+        background: #1a472a;
+        color: white;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-weight: bold;
+        min-width: 45px;
+        text-align: center;
+        font-size: 15px;
+      }
+      .range-label {
+        font-size: 12px;
+        color: #888;
+        white-space: nowrap;
+      }
+      .submit-btn {
+        width: 100%;
+        padding: 17px;
+        background: linear-gradient(135deg, #f5a623, #e8890c);
+        color: white;
+        font-size: 19px;
+        font-weight: 900;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        letter-spacing: 2px;
+        margin-top: 12px;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        box-shadow: 0 5px 20px rgba(245, 166, 35, 0.5);
+      }
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(245, 166, 35, 0.6);
+      }
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+      .result-box {
+        display: none;
+        background: #1a472a;
+        color: white;
+        border-radius: 15px;
+        padding: 22px;
+        text-align: center;
+        margin-top: 22px;
+      }
+      .result-box.show {
+        display: block;
+      }
+      .result-box h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      .result-box p {
+        font-size: 15px;
+        opacity: 0.9;
+        line-height: 1.7;
+      }
+      .agree-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        border: 2px solid #eee;
+        cursor: pointer;
+        font-size: 13px;
+        margin-top: 5px;
+      }
+      .agree-row input {
+        width: 18px;
+        height: 18px;
+        accent-color: #1a472a;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .loading {
+        display: none;
+        text-align: center;
+        padding: 15px;
+        color: #1a472a;
+        font-weight: bold;
+        font-size: 15px;
+      }
+      .loading.show {
+        display: block;
+      }
+      .config-box {
+        background: #fff3cd;
+        border: 2px solid #f5a623;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 20px;
+      }
+      .config-box h3 {
+        color: #e65100;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+      .config-box small {
+        color: #777;
+        font-size: 12px;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .config-box input {
+        width: 100%;
+        margin-bottom: 8px;
+        padding: 9px 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 13px;
+        font-family: inherit;
+      }
+      .config-box a {
+        color: #1a472a;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>BACKCHODI REGISTRATION FORM</h1>
+        <p>Haryana Bakwaas Bureau — Sarkari Dastavej</p>
+        <div class="stamp">
+          🏆 GOVERNMENT OF HARYANVI GAPBAAZI — SINCE 1947 🏆
+        </div>
+      </div>
+
+      <div class="form-body">
+        <!-- EmailJS Config Box -->
+
+        <div class="serial-no">
+          <strong id="formNo">BCH-2026-????</strong>
+          Yeh form number yaad rakhio bhai 😄
+        </div>
+
+        <!-- SECTION 1 -->
+        <div class="section-title">📋 SECTION 1 — AAPKA PARICHAY</div>
+
+        <div class="field">
+          <label class="main-label"
+            >🧑 Tharaa Naam (Gote ka nahin, apna likhio)</label
+          >
+          <input
+            type="text"
+            id="f_naam"
+            placeholder="Jaise: Bantu, Pappu, Raju Bhai..."
+          />
+        </div>
+
+        <div class="field">
+          <label class="main-label"
+            >🏘️ Kaunsa Gaav? (Sach bata, jhoot mat maar)</label
+          >
+          <input type="text" id="f_gaav" placeholder="Gaav ka naam likhio..." />
+        </div>
+
+        <div class="field">
+          <label class="main-label"
+            >📱 Tharaa Number (Bhains ke liye nahin dena)</label
+          >
+          <input
+            type="tel"
+            id="f_number"
+            placeholder="WhatsApp wala number..."
+          />
+        </div>
+
+        <div class="field">
+          <label class="main-label">🎂 Umar (Seedha bata)</label>
+          <div class="radio-group">
+            <input type="radio" name="umar" id="u1" value="15-20 saal" /><label
+              for="u1"
+              >15-20 saal</label
+            >
+            <input type="radio" name="umar" id="u2" value="20-30 saal" /><label
+              for="u2"
+              >20-30 saal</label
+            >
+            <input type="radio" name="umar" id="u3" value="30-40 saal" /><label
+              for="u3"
+              >30-40 saal</label
+            >
+            <input type="radio" name="umar" id="u4" value="40+ saal" /><label
+              for="u4"
+              >40+ saal</label
+            >
+            <input
+              type="radio"
+              name="umar"
+              id="u5"
+              value="Yaad hi nahin"
+            /><label for="u5">Yaad Hi Nahin 😅</label>
+          </div>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div class="section-title">🗣️ SECTION 2 — BACKCHODI LEVEL JAANCH</div>
+
+        <div class="field">
+          <label class="main-label"
+            >💪 Backchodi Level (1 = Naya Banda, 10 = God Level)</label
+          >
+          <div class="range-container">
+            <span class="range-label">Zero</span>
+            <input
+              type="range"
+              min="1"
+              max="10"
+              value="7"
+              id="f_level"
+              oninput="
+                document.getElementById('lvlVal').textContent = this.value
+              "
+            />
+            <span class="range-label">God Level</span>
+            <div class="range-value" id="lvlVal">7</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="main-label"
+            >⏰ Ek din mein kitna time backchodi karta hai?</label
+          >
+          <div class="radio-group">
+            <input type="radio" name="time" id="t1" value="1-2 ghante" /><label
+              for="t1"
+              >1-2 ghante</label
+            >
+            <input type="radio" name="time" id="t2" value="2-5 ghante" /><label
+              for="t2"
+              >2-5 ghante</label
+            >
+            <input type="radio" name="time" id="t3" value="5-8 ghante" /><label
+              for="t3"
+              >5-8 ghante</label
+            >
+            <input type="radio" name="time" id="t4" value="Poora din" /><label
+              for="t4"
+              >Poora din</label
+            >
+            <input
+              type="radio"
+              name="time"
+              id="t5"
+              value="Sone ke alawa sab time"
+            /><label for="t5">Sone ke alawa sab time</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="main-label"
+            >📍 Backchodi kahan karta hai? (sab chunio)</label
+          >
+          <div class="checkbox-group" id="f_jagah">
+            <label class="checkbox-item"
+              ><input type="checkbox" value="Kheth mein kaam chhod ke" /> 🚜
+              Kheth mein (Kaam chhod ke)</label
+            >
+            <label class="checkbox-item"
+              ><input type="checkbox" value="Naayi ki dukaan pe" /> 💈 Naayi ki
+              dukaan pe</label
+            >
+            <label class="checkbox-item"
+              ><input type="checkbox" value="Chai ki thadi pe" checked /> ☕
+              Chai ki thadi pe</label
+            >
+            <label class="checkbox-item"
+              ><input type="checkbox" value="Cricket ground mein" /> 🏏 Cricket
+              ground mein</label
+            >
+            <label class="checkbox-item"
+              ><input type="checkbox" value="Auto mein safar karte waqt" /> 🛺
+              Auto mein safar karte waqt</label
+            >
+            <label class="checkbox-item"
+              ><input type="checkbox" value="Mandir ke baahar" /> 🕌
+              Mandir/Gurdware ke baahar</label
+            >
+            <label class="checkbox-item"
+              ><input type="checkbox" value="WhatsApp Group mein 24/7" /> 📲
+              WhatsApp Group mein (24/7)</label
+            >
+            <label class="checkbox-item"
+              ><input type="checkbox" value="Shaadi mein bina invite ke" /> 🎪
+              Shaadi mein bina invite ke</label
+            >
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="main-label"
+            >🎯 Tharri Backchodi ka Specialization?</label
+          >
+          <div class="radio-group">
+            <input
+              type="radio"
+              name="spec"
+              id="s1"
+              value="Bhains wali gapein"
+            /><label for="s1">🐄 Bhains wali gapein</label>
+            <input
+              type="radio"
+              name="spec"
+              id="s2"
+              value="Cricket expert banega"
+            /><label for="s2">🏏 Cricket expert</label>
+            <input
+              type="radio"
+              name="spec"
+              id="s3"
+              value="Shaadi mein taang adaana"
+            /><label for="s3">💒 Shaadi mein taang adaana</label>
+            <input
+              type="radio"
+              name="spec"
+              id="s4"
+              value="Rajneeti ka gyaan"
+            /><label for="s4">🗳️ Rajneeti gyan</label>
+            <input
+              type="radio"
+              name="spec"
+              id="s5"
+              value="Desi nuskhe batana"
+            /><label for="s5">💊 Desi nuskhe</label>
+            <input
+              type="radio"
+              name="spec"
+              id="s6"
+              value="Khet ki expert analysis"
+            /><label for="s6">🌾 Khet ki analysis</label>
+            <input
+              type="radio"
+              name="spec"
+              id="s7"
+              value="Gaadi wali bakwaas"
+            /><label for="s7">🚗 Gaadi wali bakwaas</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="main-label"
+            >🦁 Sabse bada dialogue jo tune maara ho (Apna legendary
+            likh)</label
+          >
+          <textarea
+            id="f_dialogue"
+            placeholder="Jaise: 'Bhai hum toh kehte hain ki...' — Apna best wala likh yahan!"
+          ></textarea>
+        </div>
+
+        <!-- SECTION 3 — CRIME RECORD 😂 -->
+        <div class="section-title red">
+          🔫 SECTION 3 — HARYANVI CRIME RECORD (Bilkul Sach Batao)
+        </div>
+
+        <div class="field">
+          <label class="main-label"
+            >🔪 Murder kiya hai kabhi? (Seedha jawab do, darr mat)</label
+          >
+          <div class="radio-group red">
+            <input
+              type="radio"
+              name="murder"
+              id="m1"
+              value="Nahin, main seedha insaan hun"
+            /><label for="m1">😇 Nahin, main seedha hun</label>
+            <input
+              type="radio"
+              name="murder"
+              id="m2"
+              value="Sirf mosquito ka murder kiya hai"
+            /><label for="m2">🦟 Sirf Mosquito ka</label>
+            <input
+              type="radio"
+              name="murder"
+              id="m3"
+              value="Padosi ke murge ka tha ek baar"
+            /><label for="m3">🐓 Padosi ke Murge ka</label>
+            <input
+              type="radio"
+              name="murder"
+              id="m4"
+              value="Apne future ka murder kiya hai exam mein"
+            /><label for="m4">📚 Apna Future (Exam mein)</label>
+            <input
+              type="radio"
+              name="murder"
+              id="m5"
+              value="Cricket match mein opponent team ka murder kiya"
+            /><label for="m5">🏏 Cricket Team ka</label>
+            <input
+              type="radio"
+              name="murder"
+              id="m6"
+              value="5th baar pooch rahe ho yaar"
+            /><label for="m6">🤐 5th baar pooch rahe ho?</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="main-label"
+            >🔫 Konsi Bandook Chali Hai? (Honest Rehna Ekdum)</label
+          >
+          <div class="radio-group red">
+            <input
+              type="radio"
+              name="bandook"
+              id="bk1"
+              value="Kabhi nahin chali, main sharafat wala hun"
+            /><label for="bk1">😇 Kabhi Nahin</label>
+            <input
+              type="radio"
+              name="bandook"
+              id="bk2"
+              value="Pataake wali Diwali mein"
+            /><label for="bk2">🎆 Pataake wali (Diwali)</label>
+            <input
+              type="radio"
+              name="bandook"
+              id="bk3"
+              value="Water gun chali bachpan mein"
+            /><label for="bk3">🔫 Water Gun (Bachpan)</label>
+            <input
+              type="radio"
+              name="bandook"
+              id="bk4"
+              value="PUBG mein AWM aur M416 sab chalai hain"
+            /><label for="bk4">🎮 PUBG wali (AWM/M416)</label>
+            <input
+              type="radio"
+              name="bandook"
+              id="bk5"
+              value="Desi katta chala hai gaav mein shaadi pe"
+            /><label for="bk5">💥 Desi Katta (Shaadi pe)</label>
+            <input
+              type="radio"
+              name="bandook"
+              id="bk6"
+              value="12 bore wali kheth mein neelgai bhagane ko"
+            /><label for="bk6">🌾 12 Bore (Neelgai ke liye)</label>
+            <input
+              type="radio"
+              name="bandook"
+              id="bk7"
+              value="Sab chali hain main ek dum pro hun"
+            /><label for="bk7">🤠 Sab Chali Hain — Main PRO hun</label>
+          </div>
+        </div>
+
+        <!-- SECTION 4 -->
+        <div class="section-title">📜 SECTION 4 — FINAL DECLARATION</div>
+
+        <div class="field">
+          <label class="main-label"
+            >🤣 Backchodi band karne ka koi plan hai?</label
+          >
+          <div class="radio-group">
+            <input type="radio" name="band" id="b1" value="Kabhi nahin" /><label
+              for="b1"
+              >Kabhi nahin 😤</label
+            >
+            <input
+              type="radio"
+              name="band"
+              id="b2"
+              value="Saans rukegi tab rukegi"
+            /><label for="b2">Saans rukegi tab</label>
+            <input
+              type="radio"
+              name="band"
+              id="b3"
+              value="Kya matlab band karna"
+            /><label for="b3">Kya matlab band?</label>
+            <input
+              type="radio"
+              name="band"
+              id="b4"
+              value="Yeh sawaal hi galat hai"
+            /><label for="b4">Sawaal hi galat hai</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="agree-row">
+            <input type="checkbox" id="agree" />
+            <span
+              >Main sweekar karta hun ki meri backchodi 100% asli, organic, aur
+              desi hai. Isme koi import material nahin. Jai Haryana! 🙏</span
+            >
+          </label>
+        </div>
+
+        <button class="submit-btn" id="submitBtn" onclick="submitForm()">
+          ✅ FORM JAMA KARO — BHAI!
+        </button>
+        <div class="loading" id="loadingMsg">
+          📧 Email bhej rhe hain... thoda ruk bhai... ☕
+        </div>
+
+        <div class="result-box" id="resultBox">
+          <h2 id="resultEmoji">🎉</h2>
+          <p id="resultText"></p>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+      const num = Math.floor(Math.random() * 9000) + 1000;
+      const formNo = "BCH-2026-" + num;
+      document.getElementById("formNo").textContent = formNo;
+
+      function getRadioValue(name) {
+        const el = document.querySelector('input[name="' + name + '"]:checked');
+        return el ? el.value : "Jawab nahin diya";
+      }
+
+      function getCheckboxValues(groupId) {
+        const boxes = document.querySelectorAll(
+          "#" + groupId + ' input[type="checkbox"]:checked',
+        );
+        const vals = Array.from(boxes).map(function (b) {
+          return b.value;
+        });
+        return vals.length > 0 ? vals.join(" | ") : "Kuch nahin chuna";
+      }
+
+      const successMessages = [
+        {
+          e: "🏆🎉🏆",
+          t: "Badhaai Ho Bhai! Teri application APPROVED ho gayi! Tu ab officially Haryana ka Certified Backchod hai. Certificate 10 saal mein aayega — tab tak thodi aur karo!",
+        },
+        {
+          e: "🥇🐄🥇",
+          t: "Wah wah bhai! Tera naam Haryana Backchodi Hall of Fame mein darz kar liya gaya! Chai ki thadi pe party banta hai. Poori mohalla ko bata de!",
+        },
+        {
+          e: "👑💪👑",
+          t: "Boss level application! Senior Gapbaaz ka pad tujhe diya jaata hai. Teri bhains bhi proud hogi. Aaj se tu officially Head Bacchod hai gaav ka!",
+        },
+      ];
+
+      async function submitForm() {
+        if (!document.getElementById("agree").checked) {
+          alert(
+            "Bhai! Pehle neeche wali declaration pe tick kar! Seedhi baat, koi chakkar nahin! 😤",
+          );
+          return;
+        }
+
+        var serviceId = document.getElementById("cfg_service").value.trim();
+        var templateId = document.getElementById("cfg_template").value.trim();
+        var pubKey = document.getElementById("cfg_pubkey").value.trim();
+        var toEmail = document.getElementById("cfg_email").value.trim();
+
+        if (!serviceId || !templateId || !pubKey || !toEmail) {
+          alert(
+            "Bhai! Upar EmailJS ki saari 4 details bharo pehle! Service ID, Template ID, Public Key aur Gmail. ⚙️",
+          );
+          return;
+        }
+
+        var jagah = getCheckboxValues("f_jagah");
+
+        var templateParams = {
+          form_no: formNo,
+          naam: document.getElementById("f_naam").value || "Nahin bataya",
+          gaav: document.getElementById("f_gaav").value || "Nahin bataya",
+          number: document.getElementById("f_number").value || "Nahin diya",
+          umar: getRadioValue("umar"),
+          level: document.getElementById("f_level").value + " / 10",
+          time: getRadioValue("time"),
+          jagah: jagah,
+          spec: getRadioValue("spec"),
+          dialogue:
+            document.getElementById("f_dialogue").value || "Kuch nahin likha",
+          murder: getRadioValue("murder"),
+          bandook: getRadioValue("bandook"),
+          band: getRadioValue("band"),
+          to_email: toEmail,
+        };
+
+        var btn = document.getElementById("submitBtn");
+        var loading = document.getElementById("loadingMsg");
+        btn.disabled = true;
+        loading.classList.add("show");
+
+        try {
+          emailjs.init(pubKey);
+          await emailjs.send(serviceId, templateId, templateParams);
+          loading.classList.remove("show");
+          var r =
+            successMessages[Math.floor(Math.random() * successMessages.length)];
+          document.getElementById("resultEmoji").textContent = r.e;
+          document.getElementById("resultText").textContent =
+            r.t + " — Email bhi bhej diya gaya tera! 📧";
+          var box = document.getElementById("resultBox");
+          box.classList.add("show");
+          box.scrollIntoView({ behavior: "smooth" });
+        } catch (err) {
+          loading.classList.remove("show");
+          btn.disabled = false;
+          alert(
+            "Email bhejne mein dikkat aayi bhai! 😅\n\n" +
+              (err.text || err.message || JSON.stringify(err)) +
+              "\n\nEmailJS ki details ek baar check kar.",
+          );
+        }
+      }
+    </script>
+  </body>
+</html>
